@@ -1,0 +1,9 @@
+  /* Baguhin ang style ng select para magkaruon ng fixed height */
+  select.form-select {
+    height: auto; /* I-reset ang height */
+    min-height: 10px; /* Itakda ang minimum height, pwedeng ayusin base sa pangangailangan */
+    white-space: pre-wrap; /* Para magkaron ng newline tulad ng paragraph */
+    border:none;
+
+    background-color: white;
+  }

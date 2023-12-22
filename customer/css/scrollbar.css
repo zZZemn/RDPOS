@@ -1,0 +1,43 @@
+.custom-scroll {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 0; /* Remove margin */
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: #ccc transparent; /* For Firefox */
+}
+
+
+.scrollable-div {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    border:none;
+}
+
+/* Webkit (Chrome, Safari) scrollbar styling */
+.custom-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+}
+
+/* Optional: Hide the scrollbar track on Webkit */
+.custom-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Hide the scrollbar buttons on Webkit */
+.custom-scroll::-webkit-scrollbar-button {
+    display: none;
+}
+
+
+

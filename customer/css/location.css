@@ -1,0 +1,49 @@
+/* Add your CSS styling here */
+body {
+    font-family: Arial, sans-serif;
+  }
+  form {
+    margin-top: 20px;
+  }
+  label {
+    font-weight: bold;
+  }
+  
+  /* Style the button as text */
+  #locateButton,
+  #locateButton_add {
+    background: none; /* Remove the background image */
+    border: none; /* Remove button border */
+    width: 150px; /* Adjust the width as needed */
+    height: 40px;
+    color: #ffffff; /* Set text color */
+    cursor: pointer;
+    text-align: center; /* Center the text */
+    font-weight: bold; /* Make the text bold */
+    font-size: 16px; /* Adjust the font size as needed */
+    background-color: #fff; /* Background color for the button */
+  }
+  
+  /* Add hover effect if desired */
+  #locateButton:hover,
+  #locateButton_add:hover {
+    opacity: 0.8; /* Adjust opacity for hover effect */
+  }
+  
+  .payment-image {
+    width: auto;
+    height: 500px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 10px auto;
+  }
+  
+  @media (max-width: 767px) {
+    /* Adjust styles for screens smaller than 768px (e.g., mobile devices) */
+    .payment-image {
+      display: block;
+      margin: 10px auto;
+    }
+  }
+  

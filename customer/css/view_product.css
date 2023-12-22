@@ -1,0 +1,46 @@
+.product-image{
+    height: 100%;
+    width: 100%;
+}
+
+.description{
+    border: 1px solid gray;
+}
+
+.product-image img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+body{
+    background-color: aliceblue;
+}
+
+.p{
+    color: black;
+    font-size: 25px;
+    margin: 0px;
+    padding: 0px;
+    font-size: 15px;
+    text-align: justify;
+}
+
+@media (max-width: 800px) {
+    
+    .product-image{
+        height: 300px;
+        width: 100%;
+    }
+
+    .buttom-dx{
+        margin: 0px;
+    }
+    
+}
+
+
+
+
+
+
