@@ -9,9 +9,10 @@
                 <th>Product Code</th>
                 <th>Category</th>
                 <th>Current price</th>
-                <th>kg</th>
                 <th>ml</th>
                 <th>g</th>
+                <th>mg</th>
+                <th>Unit Type</th>
                 <th>Stocks</th>
                 <th>Action</th>
             </tr>
@@ -84,9 +85,10 @@
                             <td>${item.prod_code}</td>
                             <td>${item.category_name}</td>
                             <td>${item.prod_currprice.toFixed(2)}</td>
-                            <td>${item.prod_kg}</td>
                             <td>${item.prod_ml}</td>
                             <td>${item.prod_g}</td>
+                            <td>${item.prod_mg}</td>
+                            <td>${item.unit_type}</td>
                             <td>${item.prod_stocks}</td>
                             <td>
                                 <a class="me-3 togler_view" href="product-details.php?target_id=${item.prod_code}">
