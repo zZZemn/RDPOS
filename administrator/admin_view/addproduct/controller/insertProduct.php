@@ -98,7 +98,7 @@ if ($_FILES['pImg']['error'] === UPLOAD_ERR_OK) {
                 $folderPath = '../../../../upload_barcode'; // Change this to the desired folder path
                 $fileName = $barcodeText . ".png";
 
-                $filePath = generateBarcodeWithText($barcodeText, $folderPath, $fileName);
+                // $filePath = generateBarcodeWithText($barcodeText, $folderPath, $fileName);
 
 
                 $query = "UPDATE product SET prod_code='" . $prod_code . "' ,barcode='" . $fileName . "' WHERE prod_id ='" . $last_id . "' ";

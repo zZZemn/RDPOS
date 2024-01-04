@@ -313,7 +313,7 @@
         $("#loadingSpinner").hide();
         $("#btnSubmit").css("display", "block");
         $("#backBtn").css("display", "block");
-        // window.location.href = "productlist.php";
+        window.location.href = "productlist.php";
       }
     });
   });
