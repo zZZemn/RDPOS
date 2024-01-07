@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     AND a.prod_id = '$product_id_value'
                     AND s_amount > 0 
                     AND (DATE(b.s_expiration) >= CURDATE() OR b.s_expiration = '0000-00-00')
-                ORDER BY b.s_expiration ASC, b.s_created ASC;
+                ORDER BY b.s_expiration ASC;
             ");
 
             if ($stock_row = $get_record->fetch_array()) {
