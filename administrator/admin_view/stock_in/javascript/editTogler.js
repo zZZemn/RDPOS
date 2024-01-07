@@ -21,6 +21,7 @@ $(document).ready(function () {
           var html = "<tr>";
           html += '<td><input type="checkbox" id="EachCheckbox"></td>';
           html += "<td>" + row.prod_name + "</td>";
+          html += "<td>" + row.s_stock_in_qty + "</td>";
           html += "<td>" + row.s_amount + "</td>";
           html += "<td>";
 

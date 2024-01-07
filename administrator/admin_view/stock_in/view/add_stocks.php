@@ -52,7 +52,8 @@ while ($row = mysqli_fetch_assoc($view_query)) {
                     <tr>
                         <th scope="col"><input type="checkbox" id="AllCheckbox"></th>
                         <th scope="col">Product Name</th>
-                        <th scope="col">Qty</th>
+                        <th scope="col">Stock In</th>
+                        <th scope="col">Current Stock</th>
                         <th scope="col">Unit</th>
                         <th scope="col">Current price</th>
                         <th scope="col">Supplier price</th>
