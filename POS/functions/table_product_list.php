@@ -1,10 +1,10 @@
 <?php
-include ('../config/config.php');
-include ('../functions/session.php');
+include('../config/config.php');
+include('../functions/session.php');
 
 if (isset($_POST['searchTerm'])) {
     $searchTerm = $_POST['searchTerm'];
-    
+
     $sql = "SELECT 
     product.prod_id, 
     product.prod_code, 
@@ -16,6 +16,7 @@ if (isset($_POST['searchTerm'])) {
     product.prod_description, 
     product.prod_category_id, 
     product.prod_unit_id,
+    product.unit_type,
     COALESCE(stock_total.total_stock_amount, 0) AS total_stock_amount
 FROM 
     product
@@ -42,7 +43,7 @@ ORDER BY
 ";
 
     $result = $conn->query($sql);
-    
+
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             echo '
@@ -52,30 +53,29 @@ ORDER BY
                         <img class="rounded" src="../../upload_prodImg/' . $row['prod_image'] . '" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="m-2 mt-1">';
-                        if ($row['total_stock_amount'] == '0') {
-                            echo '<span style="font-size: 12px; position: absolute; buttom: 0; right: 10px;" class="m-0 fw-bold"><button disabled class="btn btn-sm btn-primary rounded rounded-5 add-to-cart-button"><img src="../assets/images/add_cart.png" style="width: 25px;" class="w-100;"></button></span>';
-                        }else{
-                            echo '<span style="font-size: 12px; position: absolute; buttom: 0; right: 10px;" class="m-0 fw-bold"><button data-bs-toggle="modal" data-bs-target="#add_cart" data-prod-id="' . $row['prod_id'] . '" data-stocks="' . $row['total_stock_amount'] . '" data-name="' . $row['prod_name'] . '"  class="btn btn-sm btn-primary rounded rounded-5 add-to-cart-button"><img src="../assets/images/add_cart.png" style="width: 25px;" class="w-100;"></button></span>';
-                        }
-                        
-                        echo '<div class="d-flex " >
+            if ($row['total_stock_amount'] == '0') {
+                echo '<span style="font-size: 12px; position: absolute; buttom: 0; right: 10px;" class="m-0 fw-bold"><button disabled class="btn btn-sm btn-primary rounded rounded-5 add-to-cart-button"><img src="../assets/images/add_cart.png" style="width: 25px;" class="w-100;"></button></span>';
+            } else {
+                echo '<span style="font-size: 12px; position: absolute; buttom: 0; right: 10px;" class="m-0 fw-bold"><button data-bs-toggle="modal" data-bs-target="#add_cart" data-prod-id="' . $row['prod_id'] . '" data-stocks="' . $row['total_stock_amount'] . '" data-name="' . $row['prod_name'] . '" data-unit_type="' . $row['unit_type'] . '"  class="btn btn-sm btn-primary rounded rounded-5 add-to-cart-button"><img src="../assets/images/add_cart.png" style="width: 25px;" class="w-100;"></button></span>';
+            }
+
+            echo '<div class="d-flex " >
                         <p style="font-size: 20px; border-right: 3px solid gray; background-color: #E9ECEF"  class="m-0 ps-2 rounded fw-bold pe-2 me-1">₱ ' . $row['prod_currprice'] . '</p>
                         ';
 
-                        if ($row['total_stock_amount'] == '0') {
-                            echo '<p style="font-size: 10px; color: red" class="m-0 ms-1">Not Available</p>';
-                        }else{
-                           
-                            echo '
+            if ($row['total_stock_amount'] == '0') {
+                echo '<p style="font-size: 10px; color: red" class="m-0 ms-1">Not Available</p>';
+            } else {
+
+                echo '
                             <div class="d-block m-0 p-0">
-                            <div><p style="font-size: 10px; color: green" class="m-0 ms-1">Available</p></div><div><p style="font-size: 10px; color: green" class="m-0 ms-1"> '.$row['total_stock_amount'].' Items</p></div>
+                            <div><p style="font-size: 10px; color: green" class="m-0 ms-1">Available</p></div><div><p style="font-size: 10px; color: green" class="m-0 ms-1"> ' . $row['total_stock_amount'] . ' ' . $row['unit_type'] . '</p></div>
                             </div>
                             ';
-                            
-                        }
+            }
 
-                        echo '</div>
-                        <p style="font-size: 12px; margin-top: -5;" class="m-0">' . $limitedString = substr($row['prod_name'], 0, 20). '</p>
+            echo '</div>
+                        <p style="font-size: 12px; margin-top: -5;" class="m-0">' . $limitedString = substr($row['prod_name'], 0, 20) . '</p>
                     </div>
                 </div>
             </div>
@@ -84,7 +84,7 @@ ORDER BY
     } else {
         echo '<p class="">No result</p>';
     }
-} 
+}
 
 ?>
 
@@ -100,21 +100,21 @@ ORDER BY
             </div>
             <form action="pos" method="POST">
                 <div class="modal-body">
-                    <input type="hidden" id="acc_id" name="acc_id" class="form-control mb-2" value="<?php echo $acc_id?>">
-                    <input type="hidden" id="prod_id_input" name="prod_id" class="form-control mb-2"  value="">
-                    <input type="hidden" id="stocks_inputs" name="stocks" class="form-control mb-2"  value="">
+                    <input type="hidden" id="acc_id" name="acc_id" class="form-control mb-2" value="<?php echo $acc_id ?>">
+                    <input type="hidden" id="prod_id_input" name="prod_id" class="form-control mb-2" value="">
+                    <input type="hidden" id="stocks_inputs" name="stocks" class="form-control mb-2" value="">
                     <div class="input-group mt-2" id="add">
                         <label for="" class="form-control ">Product Name</label>
-                        <input type="text" class="form-control text-end "  value="" id="add_name" disabled style="background-color: white">
+                        <input type="text" class="form-control text-end " value="" id="add_name" disabled style="background-color: white">
                     </div>
                     <div class="input-group mt-2" id="add">
-                        <label for="" class="form-control ">Stocks</label>
+                        <label for="" class="form-control ">Stocks (<span id="posATCUnitType"></span>)</label>
                         <input type="number" class="form-control text-end" value="" id="stocks_inputs" disabled style="background-color: white">
                     </div>
                     <input type="number" id="amount" name="amount" required placeholder="Enter amount here" class="form-control mt-2">
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" >Add</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
                 </div>
             </form>
         </div>

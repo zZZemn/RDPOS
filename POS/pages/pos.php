@@ -131,7 +131,6 @@ if (isset($_POST['prod_id'], $_POST['amount'], $_POST['acc_id'])) {
             </div>
             <div class="col-12 col-md-5 ">
                 <?php include '../functions/table_product_cart.php'; ?>
-
             </div>
         </div>
     </div>
