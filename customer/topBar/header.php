@@ -1,23 +1,15 @@
-
 <div class="header-left active" style="background-color:#600000;">
-
-
     <a id="system_name" href="home.php" class="logo">
-        <h1 style="color:white;"><?= $db_system_name?></h1>
-       
+        <h1 style="color:white;"><?= $db_system_name ?></h1>
+
     </a>
 
-
-    
     <a id="mobile_search">
-    <input id="searchInputNew_mobile" type="text" placeholder="Search product Here..." style="display: block; margin: 0 auto; width: 60%; border-radius:5px; max-width: 300px; padding: 8px; position: fixed; z-index: 9999; top: 10px; left: 50%; transform: translateX(-50%);">
-    <div id="suggestionsContainer_mobile" style="position: fixed; top: 70px; width: 100%;">
-        <!-- Content -->
-    </div>
+        <input id="searchInputNew_mobile" type="text" placeholder="Search product Here..." style="display: block; margin: 0 auto; width: 60%; border-radius:5px; max-width: 300px; padding: 8px; position: fixed; z-index: 9999; top: 10px; left: 50%; transform: translateX(-50%);">
+        <div id="suggestionsContainer_mobile" style="position: fixed; top: 70px; width: 100%;">
+            <!-- Content -->
+        </div>
     </a>
-
-
-
 
     <a href="home.php" class="logo-small">
         <img src="../upload_system/<?= $db_system_logo ?>" style="width:40px;" alt="">
@@ -73,7 +65,7 @@
 
     function toggleMobileSearch() {
         var mobileSearch = document.getElementById('mobile_search');
-        
+
         if (window.innerWidth <= 768) {
             mobileSearch.style.display = 'block'; // Show on mobile view
         } else {
