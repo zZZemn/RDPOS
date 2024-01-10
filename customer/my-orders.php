@@ -1,11 +1,6 @@
 <?php
-
 include "backend/session.php";
-
 include "controller/function/session_Dir.php";
-
-
-
 ?>
 
 <!--- start import --->
@@ -19,7 +14,7 @@ include "controller/function/session_Dir.php";
     <meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern,  html5, responsive">
     <meta name="author" content="Dreamguys - Bootstrap Admin Template">
     <meta name="robots" content="noindex, nofollow">
-    <title>Cart</title>
+    <title>My Orders</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="../../upload_system/<?= $db_system_logo ?>">
 

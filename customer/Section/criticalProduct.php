@@ -8,8 +8,7 @@
                         <th>Stock level</th>
                         <th>Critical level</th>
                         <th>Product</th>
-                        <th>Product code</th>
-                        
+                        <th>Product code</th>     
                         <th>Status</th>
                         <th><center>Request stocks</center></th>
                     </tr>
