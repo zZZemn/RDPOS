@@ -68,7 +68,7 @@ include "controller/function/count.php";
 
 <body>
     <div id="global-loader">
-        <div class="whirly-loader"> </div>
+        <div class="whirly-loader"></div>
     </div>
 
     <div class="main-wrapper">
@@ -90,8 +90,7 @@ include "controller/function/count.php";
         <!---start changable content---->
         <!--- <main>---->
         <br><br><br>
-        <div class="container">
-
+        <div class="container bg-dark">
             <div class="tabs">
                 <div class="tab" onclick="showTab('all')">All</div>
                 <div class="tab" onclick="showTab('topay')">Pending</div>
