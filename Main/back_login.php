@@ -48,19 +48,19 @@ if (isset($_POST["btnLogin"])) {
 
                     if ($accountype == "administrator") {
                         // Redirect to administrator
-                     
+
                         header("Location: ../administrator/adminpages/");
                         exit();
                     } else if ($accountype == "delivery person") {
                         // Redirect to delivery
-                       
+
                         header("Location: ../delivery/deliver.php");
                         exit();
                     } else {
                         // Redirect to customer
-                     
-                    
-                        header("Location: ../customer/home.php");
+
+
+                        header("Location: ../new-customer-website/index.php");
                         exit();
                     }
                 } else {
@@ -101,6 +101,3 @@ function displayError($message)
     });
     </script>';
 }
-
-
-?>
