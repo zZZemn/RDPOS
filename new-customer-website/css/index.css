@@ -1,0 +1,41 @@
+/* Best Sellers */
+.best-sellers-container {
+    overflow-x: auto;
+}
+
+.product-container {
+  height: 250px;
+  width: 200px;
+  position: relative;
+}
+
+.product-container img {
+  height: 160px;
+  width: 198px;
+  border: 1px solid rgb(192, 192, 192);
+}
+
+.product-contents-container {
+  height: 88px;
+  width: 198px;
+  text-align: center;
+}
+
+.product-name {
+  font-size: 15px;
+  margin: 0;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.txt-out-of-stock {
+  font-size: 12px;
+  position: absolute;
+  padding: 3px 7px;
+  border-bottom-right-radius: 5px;
+  background-color: white;
+}
+
+.product-price {
+  font-size: 12px;
+}
