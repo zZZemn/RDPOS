@@ -17,15 +17,4 @@ class global_class extends db_connect
             return $result;
         }
     }
-    // public function sendMessage($senderId, $userId, $message)
-    // {
-    //     $dateTime = $this->dateTime();
-    //     $query = $this->conn->prepare("INSERT INTO `message`(`SENDER_ID`, `RECEIVER_ID`, `MESSAGE`, `DATE_TIME`) VALUES (?, ?, ?, ?)");
-    //     $query->bind_param('ssss', $senderId, $userId, $message, $dateTime);
-    //     $addNotif = $this->conn->prepare("UPDATE `users` SET `INBOX`= `INBOX` + 1 WHERE `ID` = '$userId'");
-
-    //     if ($query->execute() && $addNotif->execute()) {
-    //         return 200;
-    //     }
-    // }
 }
