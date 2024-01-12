@@ -1,5 +1,7 @@
 $(document).ready(function () {
   var isNavOpen = true;
+  var search = $("#searchProduct").val();
+  var category = $("#productCategory").val();
 
   //   Functions
   const showAlert = (alertType, text) => {
@@ -7,6 +9,22 @@ $(document).ready(function () {
     setTimeout(() => {
       $(alertType).css("opacity", "0");
     }, 1000);
+  };
+
+  const displayProduct = (search, category) => {
+    $.ajax({
+      type: "GET",
+      url: "backend/end-points/get-all-products.php",
+      data: {
+        requestType: "getAllProducts",
+        search: search,
+        category: category,
+      },
+      success: function (response) {
+        $("#allProductsContainer").html(response);
+        console.log(response);
+      },
+    });
   };
 
   //   End of functions
@@ -39,7 +57,7 @@ $(document).ready(function () {
   //   End of Side Bar
 
   //View Product
-  $(".btnViewProduct").click(function (e) {
+  $(document).on("click", ".btnViewProduct", function (e) {
     e.preventDefault();
     var productName = $(this).data("name");
     productName +=
@@ -99,4 +117,24 @@ $(document).ready(function () {
       },
     });
   });
+
+  // Search Product
+  $("#searchProduct").on("input", function (e) {
+    e.preventDefault();
+    search = $(this).val();
+
+    $("#productCategory").val("All");
+    displayProduct(search, category);
+  });
+
+  $("#productCategory").change(function (e) {
+    e.preventDefault();
+    $("#searchProduct").val("");
+    search = "";
+    category = $(this).val();
+    displayProduct(search, category);
+  });
+
+  // Function Call
+  displayProduct(search, category);
 });

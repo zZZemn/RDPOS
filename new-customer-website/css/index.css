@@ -51,8 +51,14 @@
 /* Search */
 .search-product-container {
   position: sticky;
-  top: 5px !important;
+  top: 0 !important;
   z-index: 100;
+  background-color: white;
+}
+
+.searchbar-container {
+  position: relative;
+  width: 300px;
 }
 
 .search-product-button {
@@ -61,4 +67,8 @@
   right: 0;
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
+}
+
+.select-product-category {
+  width: 130px;
 }

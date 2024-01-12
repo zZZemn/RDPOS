@@ -18,9 +18,32 @@ class global_class extends db_connect
         }
     }
 
-    public function getAllProducts()
+    public function getAllProducts($search, $category)
     {
-        $query = $this->conn->prepare("SELECT * FROM `product` WHERE `prod_status` = '0' AND `prod_sell_onlline` = '1'");
+        if ($search != '') {
+            // Get Using Search
+            $query = $this->conn->prepare("SELECT * 
+                                           FROM `product` 
+                                           WHERE (`prod_name` LIKE '%$search%' OR `prod_description` LIKE '%$search%')
+                                           AND `prod_status` = '0' 
+                                           AND `prod_sell_onlline` = '1'");
+        } elseif ($category != 'All') {
+            //Get Using Category
+            $query = $this->conn->prepare("SELECT * FROM `product` WHERE `prod_status` = '0' AND `prod_sell_onlline` = '1' AND `prod_category_id` = '$category'");
+        } else {
+            // Get All
+            $query = $this->conn->prepare("SELECT * FROM `product` WHERE `prod_status` = '0' AND `prod_sell_onlline` = '1'");
+        }
+
+        if ($query->execute()) {
+            $result = $query->get_result();
+            return $result;
+        }
+    }
+
+    public function getCategories()
+    {
+        $query = $this->conn->prepare("SELECT * FROM `category` WHERE `category_status` = '1'");
         if ($query->execute()) {
             $result = $query->get_result();
             return $result;
