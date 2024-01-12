@@ -79,16 +79,6 @@ include('components/header.php');
                             <span class="product-price text-success">PHP <?= $newProduct['prod_currprice'] ?></span>
                         </div>
                     </button>
-                    <button class="m-2 p-0 product-container btnViewProduct" data-id="<?= $newProduct['prod_id'] ?>" data-name="<?= $newProduct['prod_name'] ?>" data-mg="<?= $newProduct['prod_mg'] ?>" data-g="<?= $newProduct['prod_g'] ?>" data-ml="<?= $newProduct['prod_ml'] ?>" data-unitType="<?= $newProduct['unit_type'] ?>" data-category="<?= $newProduct['prod_category_id'] ?>" data-description="<?= $newProduct['prod_description'] ?>" data-image="<?= $newProduct['prod_image'] ?>" data-price="<?= $newProduct['prod_currprice'] ?>" data-stock="<?= $productQty ?>">
-                        <?= ($outOfStock) ? '<span class="txt-out-of-stock text-danger">Out of stock.</span>' : '' ?>
-                        <img class="product-image" src="../upload_prodImg/<?= $newProduct['prod_image'] ?>">
-                        <div class="p-1 product-contents-container">
-                            <p class="product-name">
-                                <?= $newProduct['prod_name'] ?>
-                            </p>
-                            <span class="product-price text-success">PHP <?= $newProduct['prod_currprice'] ?></span>
-                        </div>
-                    </button>
                 <?php
                 }
                 ?>
