@@ -1,7 +1,7 @@
 <?php
 include('components/header.php');
 ?>
-<h4>All Products</h4>
+<h2>All Products</h2>
 <div class="">
     <?php
     $getBestSellers = $db->getBestSellers();

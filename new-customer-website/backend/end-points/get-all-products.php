@@ -4,7 +4,7 @@ include('../class.php');
 $db = new global_class();
 if (isset($_SESSION['acc_id'])) {
     if (isset($_GET['requestType'])) {
-        if ($_GET['requestType'] == 'getAllProducts') {;
+        if ($_GET['requestType'] == 'getAllProducts') {
             $getProducts = $db->getAllProducts($_GET['search'], $_GET['category']);
 
             if ($getProducts->num_rows > 0) {

@@ -117,4 +117,25 @@ class global_class extends db_connect
             return 400;
         }
     }
+
+    public function getCartItems($userId)
+    {
+        $query = $this->conn->prepare("SELECT nc.cart_id, nc.qty, p.* FROM `new_cart` AS nc JOIN `product` AS p ON nc.prod_id = p.prod_id WHERE nc.user_id = '$userId'");
+        if ($query->execute()) {
+            $result = $query->get_result();
+            return $result;
+        }
+    }
+
+    public function updateCart($cartId, $updateType)
+    {
+        if ($updateType == 'inc') {
+            $query = $this->conn->prepare("UPDATE `new_cart` SET `qty`= `qty` + '1'  WHERE cart_id = '$cartId'");
+        } else {
+            $query = $this->conn->prepare("UPDATE `new_cart` SET `qty`= `qty` - '1'  WHERE cart_id = '$cartId'");
+        }
+        if ($query->execute()) {
+            return 200;
+        }
+    }
 }
