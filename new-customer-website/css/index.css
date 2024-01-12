@@ -47,3 +47,18 @@
 .product-price {
   font-size: 12px;
 }
+
+/* Search */
+.search-product-container {
+  position: sticky;
+  top: 5px !important;
+  z-index: 100;
+}
+
+.search-product-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}

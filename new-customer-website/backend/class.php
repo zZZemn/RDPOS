@@ -52,6 +52,21 @@ class global_class extends db_connect
         }
     }
 
+    public function getNewProducts()
+    {
+        $query = $this->conn->prepare("SELECT * 
+                               FROM `product` 
+                               WHERE `prod_status` = '0' 
+                               AND `prod_sell_onlline` = '1' 
+                               AND `prod_added` >= DATE_SUB(NOW(), INTERVAL 3 WEEK)
+                               ORDER BY `prod_added` DESC
+                               LIMIT 5");
+        if ($query->execute()) {
+            $result = $query->get_result();
+            return $result;
+        }
+    }
+
     // Cart
     public function checkProductInCart($userId, $productId)
     {
