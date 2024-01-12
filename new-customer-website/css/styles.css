@@ -79,6 +79,37 @@ main {
   overflow-y: auto;
 }
 
+/* Input Container Label on Top */
+.input-container-label-top {
+  position: relative;
+}
+
+.input-container-label-top label {
+  position: absolute;
+  background-color: white;
+  font-size: 11px;
+  font-weight: 600;
+  top: -8px;
+  left: 10px;
+  padding: 0px 10px;
+}
+
+.input-container-label-top input,
+.input-container-label-top textarea {
+  padding-top: 10px;
+  font-size: 14px;
+}
+
+/* Alert */
+.alert {
+  position: absolute;
+  top: 20px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  opacity: 0;
+}
+
 @media only screen and (max-width: 800px) {
   .btn-toggle-side-bar {
     display: block;
@@ -86,5 +117,11 @@ main {
 
   main {
     width: 100%;
+    z-index: 1;
+  }
+
+  .side-nav {
+    position: relative;
+    z-index: 10 !important;
   }
 }

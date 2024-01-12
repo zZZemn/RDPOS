@@ -31,6 +31,9 @@ if (isset($_SESSION['acc_id'])) {
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
 </head>
 
+<div class="alert alert-danger"></div>
+<div class="alert alert-success"></div>
+
 <body class="">
     <nav class="bg-dark d-flex justify-content-between align-items-center p-3 pt-2 pb-2 top-nav">
         <div class="toggle-logo-container d-flex">
