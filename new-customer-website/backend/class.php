@@ -142,11 +142,19 @@ class global_class extends db_connect
         }
     }
 
-    // public function deleteCartItem($cartId)
-    // {
-    //     $query = $this->conn->prepare("UPDATE `new_cart` SET `qty`= `qty` - '1'  WHERE cart_id = '$cartId'");
-    //     if ($query->execute()) {
-    //         return 200;
-    //     }
-    // }
+    public function updateCartQty($cartId, $qty)
+    {
+        $query = $this->conn->prepare("UPDATE `new_cart` SET `qty`= '$qty'  WHERE `cart_id` = '$cartId'");
+        if ($query->execute()) {
+            return 200;
+        }
+    }
+
+    public function deleteAllItemsInCart($userId)
+    {
+        $query = $this->conn->prepare("DELETE FROM `new_cart` WHERE `user_id` = '$userId'");
+        if ($query->execute()) {
+            return 200;
+        }
+    }
 }

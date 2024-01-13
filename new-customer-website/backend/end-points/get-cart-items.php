@@ -6,8 +6,8 @@ if (isset($_SESSION['acc_id'])) {
     if (isset($_GET['requestType'])) {
         if ($_GET['requestType'] == 'getAllCartItems') {
             $getCartItems = $db->getCartItems($_SESSION['acc_id']);
+            $total = 0;
             if ($getCartItems->num_rows > 0) {
-                $total = 0;
                 while ($cartItem = $getCartItems->fetch_assoc()) {
                     $checkProductQty = $db->checkProductQty($cartItem['prod_id']);
                     $checkQtyResult = $checkProductQty->fetch_assoc();
@@ -30,7 +30,7 @@ if (isset($_SESSION['acc_id'])) {
                             <hr>
                             <div class="change-qty d-flex">
                                 <button id="" class="btn minusCartQty" data-id="<?= $cartItem['cart_id'] ?>"><i class="bi bi-dash"></i></button>
-                                <input type="number" inputmode="numeric" class="form-control" value="<?= $cartItem['qty'] ?>">
+                                <input type="number" inputmode="numeric" class="form-control inputChangeCartItemQty" data-id="<?= $cartItem['cart_id'] ?>" value="<?= $cartItem['qty'] ?>">
                                 <button id="" class="btn addCartQty" data-id="<?= $cartItem['cart_id'] ?>"><i class="bi bi-plus"></i></button>
                             </div>
                             <hr>
