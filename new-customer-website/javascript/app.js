@@ -180,6 +180,22 @@ $(document).ready(function () {
     });
   });
 
+  $(document).on("click", ".btnDeleteCartItem", function (e) {
+    e.preventDefault();
+    var id = $(this).data("id");
+    $.ajax({
+      type: "POST",
+      url: "backend/end-points/cart.php",
+      data: {
+        requestType: "deleteCartItem",
+        id: id,
+      },
+      success: function (response) {
+        displayCartItems();
+      },
+    });
+  });
+
   // Function Call
   displayProduct(search, category);
   displayCartItems();

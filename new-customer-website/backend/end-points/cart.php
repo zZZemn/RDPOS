@@ -10,6 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo $db->updateCart($_POST['id'], 'desc');
         } elseif ($_POST['requestType'] == 'updateCartQtyAdd') {
             echo $db->updateCart($_POST['id'], 'inc');
+        } elseif ($_POST['requestType'] == 'deleteCartItem') {
+            echo $db->updateCart($_POST['id'], 'delete');
         } else {
             echo 'Else';
         }

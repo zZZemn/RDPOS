@@ -20,9 +20,9 @@ if (isset($_SESSION['acc_id'])) {
                         <img src="../upload_prodImg/<?= $cartItem['prod_image'] ?>" class="cart-product-image">
                         <div class="item-details m-3 mt-0 mb-0">
                             <h4><?= $cartItem['prod_name'] ?></h4>
-                            <p><?= $cartItem['prod_description'] ?></p>
-                            <p class="text-success">PHP <?= $cartItem['prod_currprice'] ?></p>
-                            <p class="<?= ($currentStock > 0) ? '' : 'text-danger' ?>">
+                            <p class="mt-0"><?= $cartItem['prod_description'] ?></p>
+                            <p class="text-success mb-0">PHP <?= $cartItem['prod_currprice'] ?></p>
+                            <p class="mt-0 <?= ($currentStock > 0) ? '' : 'text-danger' ?>">
                                 <?=
                                 ($currentStock > 0) ? $currentStock . $cartItem['unit_type'] . ' Available' : 'Out of Stock'
                                 ?>
@@ -35,6 +35,10 @@ if (isset($_SESSION['acc_id'])) {
                             </div>
                             <hr>
                             <p>Amount: <span class="text-success">PHP <?= $itemAmount ?></span></p>
+                            <div class="delete-and-select-container d-flex align-items-center">
+                                <input type="checkbox" class="cartSelect form-check-input m-0" data-id="<?= $cartItem['cart_id'] ?>" style="width: 30px; height: 30px;">
+                                <button class="btnDeleteCartItem btn btn-danger d-flex align-items-center" data-id="<?= $cartItem['cart_id'] ?>" style="height: 30px; margin-left: 10px;"><i class="bi bi-trash3-fill"></i> Delete</button>
+                            </div>
                         </div>
                     </div>
                     <hr>

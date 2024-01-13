@@ -130,12 +130,23 @@ class global_class extends db_connect
     public function updateCart($cartId, $updateType)
     {
         if ($updateType == 'inc') {
-            $query = $this->conn->prepare("UPDATE `new_cart` SET `qty`= `qty` + '1'  WHERE cart_id = '$cartId'");
+            $query = $this->conn->prepare("UPDATE `new_cart` SET `qty`= `qty` + '1'  WHERE `cart_id` = '$cartId'");
+        } elseif ($updateType == 'desc') {
+            $query = $this->conn->prepare("UPDATE `new_cart` SET `qty`= `qty` - '1'  WHERE `cart_id` = '$cartId'");
         } else {
-            $query = $this->conn->prepare("UPDATE `new_cart` SET `qty`= `qty` - '1'  WHERE cart_id = '$cartId'");
+            $query = $this->conn->prepare("DELETE FROM `new_cart` WHERE `cart_id` = '$cartId'");
         }
+
         if ($query->execute()) {
             return 200;
         }
     }
+
+    // public function deleteCartItem($cartId)
+    // {
+    //     $query = $this->conn->prepare("UPDATE `new_cart` SET `qty`= `qty` - '1'  WHERE cart_id = '$cartId'");
+    //     if ($query->execute()) {
+    //         return 200;
+    //     }
+    // }
 }
