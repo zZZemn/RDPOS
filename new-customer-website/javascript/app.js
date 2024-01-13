@@ -39,12 +39,16 @@ $(document).ready(function () {
     });
   };
 
+  const closeModal = () => {
+    $(".modal").modal("hide");
+  };
+
   //   End of functions
 
   //   Close Modal
   $(".btnCloseModal").click(function (e) {
     e.preventDefault();
-    $(".modal").modal("hide");
+    closeModal();
   });
 
   //   Side Bar
@@ -208,31 +212,62 @@ $(document).ready(function () {
   $(document).on("click", ".btnDeleteCartItem", function (e) {
     e.preventDefault();
     var id = $(this).data("id");
-    $.ajax({
-      type: "POST",
-      url: "backend/end-points/cart.php",
-      data: {
-        requestType: "deleteCartItem",
-        id: id,
-      },
-      success: function (response) {
-        displayCartItems();
-      },
-    });
+
+    $("#deleteCartItemQDisplay").text(
+      "Are you sure that you want to delete this product in your cart?"
+    );
+    $("#btnDeleteCartItem").data("prodid", id);
+    $("#deleteCartItemModal").modal("show");
   });
 
   $("#deleteAllItemsInCart").click(function (e) {
     e.preventDefault();
-    $.ajax({
-      type: "POST",
-      url: "backend/end-points/cart.php",
-      data: {
-        requestType: "deleteAllCartItem",
-      },
-      success: function (response) {
-        displayCartItems();
-      },
-    });
+    $("#deleteCartItemQDisplay").text(
+      "Are you sure that you want to delete all products in your cart?"
+    );
+    $("#btnDeleteCartItem").data("prodid", "All");
+    $("#deleteCartItemModal").modal("show");
+  });
+
+  $("#btnDeleteCartItem").click(function (e) {
+    e.preventDefault();
+    var id = $(this).data("prodid");
+    if (id == "All") {
+      $.ajax({
+        type: "POST",
+        url: "backend/end-points/cart.php",
+        data: {
+          requestType: "deleteAllCartItem",
+        },
+        success: function (response) {
+          closeModal();
+          if (response == "200") {
+            showAlert(".alert-success", "Items Deleted!");
+          } else {
+            showAlert(".alert-success", "Something went wrong!");
+          }
+          displayCartItems();
+        },
+      });
+    } else {
+      $.ajax({
+        type: "POST",
+        url: "backend/end-points/cart.php",
+        data: {
+          requestType: "deleteCartItem",
+          id: id,
+        },
+        success: function (response) {
+          closeModal();
+          if (response == "200") {
+            showAlert(".alert-success", "Item Deleted!");
+          } else {
+            showAlert(".alert-success", "Something went wrong!");
+          }
+          displayCartItems();
+        },
+      });
+    }
   });
 
   // Function Call
