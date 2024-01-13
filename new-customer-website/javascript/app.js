@@ -285,6 +285,25 @@ $(document).ready(function () {
     $("#totalSelectedItems").text(totalAmount);
   });
 
+  $(document).on("click", "#btnCheckOut", function (e) {
+    e.preventDefault();
+    console.log("Check Out");
+
+    var items = [];
+
+    $(".cartSelect:checked").each(function () {
+      var prodId = $(this).data("id");
+
+      items.push(prodId);
+    });
+
+    if (items.length > 0) {
+      console.log(items);
+    } else {
+      showAlert(".alert-danger", "Please select items.");
+    }
+  });
+
   // Function Call
   displayProduct(search, category);
   displayCartItems();

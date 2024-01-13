@@ -104,6 +104,7 @@ main {
 .alert {
   position: absolute;
   top: 20px;
+  z-index: 10000;
   margin-left: 50%;
   transform: translateX(-50%);
   pointer-events: none;
