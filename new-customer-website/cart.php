@@ -3,7 +3,7 @@ include('components/header.php');
 $getCartItems = $db->getCartItems($user['acc_id']);
 ?>
 <div class="d-flex justify-content-between">
-    <h2>Cart</h2>
+    <h2><i class="bi bi-cart-check"></i> Cart</h2>
     <?= ($getCartItems->num_rows > 0) ? '<button class="btn btn-danger" id="deleteAllItemsInCart"><i class="bi bi-trash3-fill"></i> Delete All</button>' : '' ?>
 </div>
 

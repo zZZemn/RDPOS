@@ -36,7 +36,7 @@ if (isset($_SESSION['acc_id'])) {
                             <hr>
                             <p>Amount: <span class="text-success">PHP <?= $itemAmount ?></span></p>
                             <div class="delete-and-select-container d-flex align-items-center">
-                                <!-- <input type="checkbox" class="cartSelect form-check-input m-0" data-id="" style="width: 30px; height: 30px;"> -->
+                                <input type="checkbox" class="cartSelect form-check-input m-0" data-id="<?= $cartItem['prod_id'] ?>" data-amount="<?= $itemAmount ?>" style="width: 30px; height: 30px;">
                                 <button class="btnDeleteCartItem btn btn-danger d-flex align-items-center" data-id="<?= $cartItem['cart_id'] ?>" style="height: 30px; margin-left: 10px;"><i class="bi bi-trash3-fill"></i> Delete</button>
                             </div>
                         </div>
@@ -55,7 +55,7 @@ if (isset($_SESSION['acc_id'])) {
             }
             ?>
             <div class="cart-computation-container p-3">
-                <p>Total: <span class="text-success">PHP <?= $total ?></span></p>
+                <p>Total: <span class="text-success">PHP <span id="totalSelectedItems">0</span></span></p>
                 <button class="btn text-light" id="btnCheckOut" style="background-color: crimson;"><i class="bi bi-bag-check-fill"></i> Check Out</button>
             </div>
 <?php

@@ -270,6 +270,21 @@ $(document).ready(function () {
     }
   });
 
+  $(document).on("change", ".cartSelect", function (e) {
+    e.preventDefault();
+    var totalAmount = 0;
+
+    $(".cartSelect:checked").each(function () {
+      var amount = $(this).data("amount");
+
+      if (!isNaN(amount)) {
+        totalAmount += amount;
+      }
+    });
+
+    $("#totalSelectedItems").text(totalAmount);
+  });
+
   // Function Call
   displayProduct(search, category);
   displayCartItems();

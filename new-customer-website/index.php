@@ -1,7 +1,7 @@
 <?php
 include('components/header.php');
 ?>
-<h2>All Products</h2>
+<h2><i class="bi bi-shop"></i> All Products</h2>
 <div class="">
     <?php
     $getBestSellers = $db->getBestSellers();
