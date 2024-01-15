@@ -41,6 +41,31 @@
   font-weight: 600;
 }
 
+.payment-image-container {
+  width: 100% !important;
+}
+
+#paymentImgContainer {
+  max-height: 600px;
+  max-width: 300px;
+}
+
+.upload-payment-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+
+  display: none;
+}
+
+#imagePreview {
+  max-width: 50%;
+  max-height: 300px;
+  margin-top: 10px;
+  display: none; /* Hide initially */
+}
+
 @media only screen and (max-width: 767px) {
   .cart-item-container {
     justify-content: center;

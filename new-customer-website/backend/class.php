@@ -180,4 +180,100 @@ class global_class extends db_connect
             return $result;
         }
     }
+
+    // Get Payment Types
+    public function getPaymentTypes()
+    {
+        $query = $this->conn->prepare("SELECT * FROM `mode_of_payment` WHERE `payment_status` = '0'");
+        if ($query->execute()) {
+            $result = $query->get_result();
+            return $result;
+        }
+    }
+
+    public function checkId($tableName, $columnName, $id)
+    {
+        $query = $this->conn->prepare("SELECT * FROM `$tableName` WHERE `$columnName` = '$id'");
+        if ($query->execute()) {
+            $result = $query->get_result();
+            return $result;
+        }
+    }
+
+    // Place Order
+    public function placeOrderCOD($post)
+    {
+        $date = date('Y-m-d H:i:s');
+
+        // Order Id
+        $orderId = 'ORD-' . random_int(000000, 999999);
+        $checkOrderId = $this->checkId('new_tbl_orders', 'order_id', $orderId);
+        while ($checkOrderId->num_rows > 0) {
+            $orderId = 'ORD-' . random_int(000000, 999999);
+            $checkOrderId = $this->checkId('new_tbl_orders', 'order_id', $orderId);
+        }
+
+        // Get Tax Rate
+        $getMaintenance = $this->getMaintenance();
+        if ($getMaintenance->num_rows > 0) {
+            $maintenance = $getMaintenance->fetch_assoc();
+            $taxRate = $maintenance['system_tax'];
+        }
+
+        $userId = $_SESSION['acc_id'];
+        $paymentType = $_POST['paymentType'];
+        $orderItems =  json_decode($_POST['items'], true);
+
+        $subtotal = 0;
+        $vat = 0;
+        $sf = 0;
+        $total = 0;
+
+        // Get SF
+        $getUserSF = $this->getUserShippingFee($userId);
+        if ($getUserSF->num_rows > 0) {
+            $shippingFee = $getUserSF->fetch_assoc();
+            $sf = $shippingFee['sf'];
+        }
+
+        foreach ($orderItems as $item) {
+            $productId = $item['productId'];
+            $qty = $item['qty'];
+
+            $productAmount = $item['productPrice'] * $qty;
+            $itemVat = $productAmount * $taxRate;
+
+            $subtotal += $productAmount;
+            $vat += $itemVat;
+
+            $insertValues[] = "('$orderId', '$productId', '$qty')";
+
+            $deleteItemsInCart = $this->conn->prepare("DELETE FROM `new_cart` WHERE `prod_id` = '$productId' AND `user_id` = '$userId'");
+            $deleteItemsInCart->execute();
+        }
+
+        $total = $subtotal + $vat + $sf;
+
+
+        $insertItemQuery = "INSERT INTO `new_tbl_order_items` (`order_id`, `product_id`, `qty`) VALUES " . implode(", ", $insertValues);
+        $insertItem = $this->conn->prepare($insertItemQuery);
+
+        $query = $this->conn->prepare("INSERT INTO `new_tbl_orders`(`order_id`, `cust_id`, `payment_id`, `subtotal`, `vat`, `sf`, `total`, `order_date`, `status`) VALUES ('$orderId', '$userId', 'COD', '$subtotal', '$vat', '$sf', '$total', '$date', 'Pending')");
+
+        if ($query->execute() && $insertItem->execute()) {
+
+            return 200;
+        } else {
+            echo "Error inserting order or order items.";
+        }
+    }
+
+    public function placeOrderWithPOF($post, $file)
+    {
+        $userId = $_SESSION['acc_id'];
+        $paymentType = $_POST['paymentType'];
+        $orderItems =  json_encode($_POST['items']);
+
+        echo 'with pof';
+    }
 }

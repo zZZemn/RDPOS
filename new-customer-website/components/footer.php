@@ -80,6 +80,26 @@
 
                     </tbody>
                 </table>
+
+                <div class="select-payment-type-container">
+                    <div class="input-container-label-top">
+                        <label for="checkOutPaymentTypesSelect">Payment Type</label>
+                        <select class="form-control" id="checkOutPaymentTypesSelect">
+                            <option value="cod">Cash On Delivery</option>
+
+                        </select>
+                    </div>
+                    <div class="payment-image-container d-flex flex-column align-items-center mt-3">
+                        <h5 id="paymentNumberContainer" class="m-3" style="color: crimson;"></h5>
+                        <img src="" id="paymentImgContainer">
+                        <div class="upload-payment-container">
+                            <h6 class="text-success">Please Upload Proof of Payment.</h6>
+                            <input type="file" id="paymentTypeImgInput" accept="image/*" class="form-control mt-2">
+                            <img id="imagePreview" src="#" alt="Image Preview">
+                        </div>
+                    </div>
+                </div>
+
                 <div class="d-flex flex-column align-items-end p-1">
                     <div class="checkout-computation-container" style="width: 100%;">
                         <div class="d-flex justify-content-between">

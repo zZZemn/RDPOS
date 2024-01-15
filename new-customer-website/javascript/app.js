@@ -43,6 +43,36 @@ $(document).ready(function () {
     $(".modal").modal("hide");
   };
 
+  const getPaymentTypes = (callback) => {
+    var data = [];
+
+    $.ajax({
+      type: "GET",
+      url: "backend/end-points/random.php",
+      data: {
+        requestType: "GetPaymentTypes",
+      },
+      success: function (response) {
+        data = JSON.parse(response);
+        callback(data);
+      },
+    });
+  };
+
+  const previewImage = (input) => {
+    var reader = new FileReader();
+    var preview = $("#imagePreview");
+
+    reader.onload = function () {
+      preview.attr("src", reader.result);
+      preview.show();
+    };
+
+    if (input.files && input.files[0]) {
+      reader.readAsDataURL(input.files[0]);
+    }
+  };
+
   //   End of functions
 
   //   Close Modal
@@ -286,13 +316,13 @@ $(document).ready(function () {
   });
 
   // Check Out
+  var items = [];
   $(document).on("click", "#btnCheckOut", function (e) {
     e.preventDefault();
-    console.log("Check Out");
 
     var sf = $(this).data("sf");
+    items = [];
 
-    var items = [];
     var hasInvalidQty = false;
     $(".cartSelect:checked").each(function () {
       var stock = $(this).data("stock");
@@ -374,7 +404,93 @@ $(document).ready(function () {
     }
   });
 
+  // Payment Type
+  $("#checkOutPaymentTypesSelect").change(function (e) {
+    e.preventDefault();
+    var selectedOption = $(this).find("option:selected");
+    $("#paymentTypeImgInput").val(null);
+    $("#imagePreview").attr("src", "#");
+    $("#imagePreview").hide();
+
+    if ($(this).val() == "cod") {
+      $("#paymentNumberContainer").text("");
+      $("#paymentImgContainer").attr("src", "");
+      $(".upload-payment-container").css("display", "none");
+    } else {
+      $("#paymentNumberContainer").text(selectedOption.data("number"));
+      $("#paymentImgContainer").attr(
+        "src",
+        "../upload_system/" + selectedOption.data("img")
+      );
+
+      $(".upload-payment-container").css("display", "flex");
+    }
+  });
+
+  $("#paymentTypeImgInput").change(function () {
+    previewImage(this);
+  });
+
+  // Place Order
+  $("#btnPlaceOrder").click(function (e) {
+    e.preventDefault();
+    var paymentType = $("#checkOutPaymentTypesSelect").val();
+    if (paymentType == "cod") {
+      $.ajax({
+        type: "POST",
+        url: "backend/end-points/place-order.php",
+        data: {
+          requestType: "PlaceOrder",
+          paymentType: paymentType,
+          items: JSON.stringify(items),
+        },
+        success: function (response) {
+          closeModal("PlaceOrderModal");
+          displayCartItems();
+          if (response == "200") {
+            showAlert(".alert-success", "Order Placed!");
+          } else {
+            showAlert(".alert-success", "Something Went Wrong!");
+          }
+        },
+      });
+    } else {
+      if ($("#paymentTypeImgInput")[0].files.length === 0) {
+        showAlert(".alert-danger", "Please Upload Proof of Payment!");
+      } else {
+        var formData = new FormData();
+
+        var paymentTypeImgInput = $("#paymentTypeImgInput")[0].files[0];
+        formData.append("requestType", "PlaceOrder");
+        formData.append("paymentType", paymentType);
+        formData.append("items", JSON.stringify(items));
+        formData.append("proofOfPayment", paymentTypeImgInput);
+
+        $.ajax({
+          type: "POST",
+          url: "backend/end-points/place-order.php",
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function (response) {
+            console.log(response);
+          },
+        });
+      }
+    }
+  });
+  // End of Place Order
+
   // Function Call
   displayProduct(search, category);
   displayCartItems();
+
+  // Put Payment Types in Select
+  getPaymentTypes((data) => {
+    data.forEach((type) => {
+      $("#checkOutPaymentTypesSelect").append(
+        `<option value="${type.payment_id}" data-img="${type.payment_image}" data-number="${type.payment_number}">${type.payment_name}</option>`
+      );
+    });
+  });
 });
