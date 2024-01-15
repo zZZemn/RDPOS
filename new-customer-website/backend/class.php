@@ -350,4 +350,16 @@ class global_class extends db_connect
             return 'File is empty';
         }
     }
+
+
+    // Orders
+
+    public function getUserOrders($userId, $status)
+    {
+        $query = $this->conn->prepare("SELECT * FROM `new_tbl_orders` WHERE `cust_id` = '$userId' AND `status` = '$status'");
+        if ($query->execute()) {
+            $result = $query->get_result();
+            return $result;
+        }
+    }
 }

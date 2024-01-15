@@ -29,6 +29,7 @@ if (isset($_SESSION['acc_id'])) {
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/orders.css">
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
 </head>
 
@@ -53,7 +54,7 @@ if (isset($_SESSION['acc_id'])) {
         <ul class="list-group">
             <li><a href="index.php" class="nav-all-products"><i class="bi bi-shop"></i> All Products</a></li>
             <li><a href="cart.php" class="nav-cart"><i class="bi bi-cart-check"></i> Cart</a></li>
-            <li><a href="index.php" class="nav-my-orders"><i class="bi bi-newspaper"></i> My Orders</a></li>
+            <li><a href="orders.php?page=Pending" class="nav-my-orders"><i class="bi bi-newspaper"></i> My Orders</a></li>
             <li><a href="index.php" class="nav-message"><i class="bi bi-chat"></i> Message</a></li>
             <li><a href="index.php" class="nav-notification"><i class="bi bi-bell"></i> Notification</a></li>
         </ul>

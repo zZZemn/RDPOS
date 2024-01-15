@@ -490,6 +490,13 @@ $(document).ready(function () {
   });
   // End of Place Order
 
+  // Orders.php
+  $("#orderSelectPage").change(function (e) {
+    e.preventDefault();
+    window.location.href = "orders.php?page=" + $(this).val();
+  });
+  // End of Orders.php
+
   // Function Call
   displayProduct(search, category);
   displayCartItems();
