@@ -123,6 +123,7 @@ main {
 
   .side-nav {
     position: relative;
+    transform: translateX(-100%);
     z-index: 10 !important;
   }
 }

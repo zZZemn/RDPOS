@@ -37,9 +37,9 @@ if (isset($_GET['page'])) {
         </li>
     </ul>
 
-    <div class="input-container-label-top">
+    <div class="input-container-label-top show-only-when-767px-sc-width">
         <label for="orderSelectPage">Select Order Status</label>
-        <select class="form-control show-only-when-767px-sc-width" id="orderSelectPage">
+        <select class="form-control" id="orderSelectPage">
             <option value="Pending" <?= ($page == 'Pending') ? 'selected' : '' ?>>Pending</option>
             <option value="Accepted" <?= ($page == 'Accepted') ? 'selected' : '' ?>>Accepted</option>
             <option value="Ready For Delivery" <?= ($page == 'Ready For Delivery') ? 'selected' : '' ?>>Ready For Delivery</option>

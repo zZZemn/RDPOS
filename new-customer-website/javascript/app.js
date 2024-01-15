@@ -1,7 +1,31 @@
 $(document).ready(function () {
-  var isNavOpen = true;
+  var isNavOpen = false;
   var search = "";
   var category = "All";
+
+  //   Side Bar
+  $("#btnToggleSideBar").click(function (e) {
+    e.preventDefault();
+    if (isNavOpen) {
+      $(".side-nav").css("transform", "translateX(-100%)");
+    } else {
+      $(".side-nav").css("transform", "translateX(0)");
+    }
+
+    isNavOpen = !isNavOpen;
+  });
+
+  $(window).resize(function () {
+    var windowWidth = $(window).width();
+    if (windowWidth > 800) {
+      isNavOpen = true;
+      $(".side-nav").css("transform", "translateX(0)");
+    } else {
+      isNavOpen = false;
+      $(".side-nav").css("transform", "translateX(-100%)");
+    }
+  });
+  //   End of Side Bar
 
   //   Functions
   const showAlert = (alertType, text) => {
@@ -80,27 +104,6 @@ $(document).ready(function () {
     e.preventDefault();
     closeModal();
   });
-
-  //   Side Bar
-  $("#btnToggleSideBar").click(function (e) {
-    e.preventDefault();
-    if (isNavOpen) {
-      $(".side-nav").css("transform", "translateX(-100%)");
-    } else {
-      $(".side-nav").css("transform", "translateX(0)");
-    }
-
-    isNavOpen = !isNavOpen;
-  });
-
-  $(window).resize(function () {
-    var windowWidth = $(window).width();
-    if (windowWidth > 800) {
-      isNavOpen = true;
-      $(".side-nav").css("transform", "translateX(0)");
-    }
-  });
-  //   End of Side Bar
 
   //View Product
   $(document).on("click", ".btnViewProduct", function (e) {
