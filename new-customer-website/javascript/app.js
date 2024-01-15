@@ -285,22 +285,92 @@ $(document).ready(function () {
     $("#totalSelectedItems").text(totalAmount);
   });
 
+  // Check Out
   $(document).on("click", "#btnCheckOut", function (e) {
     e.preventDefault();
     console.log("Check Out");
 
+    var sf = $(this).data("sf");
+
     var items = [];
-
+    var hasInvalidQty = false;
     $(".cartSelect:checked").each(function () {
-      var prodId = $(this).data("id");
+      var stock = $(this).data("stock");
+      var inputQty = $(this).data("inputqty");
 
-      items.push(prodId);
+      data = {
+        productId: $(this).data("id"),
+        productImage: $(this).data("image"),
+        productName: $(this).data("name"),
+        productPrice: $(this).data("price"),
+        productUnitType: $(this).data("unittype"),
+        productAmount: $(this).data("amount"),
+        productVat: $(this).data("itemvat"),
+        qty: inputQty,
+      };
+
+      if (inputQty > stock) {
+        hasInvalidQty = true;
+      } else {
+        items.push(data);
+      }
     });
 
-    if (items.length > 0) {
-      console.log(items);
+    if (hasInvalidQty) {
+      showAlert(".alert-danger", "Please check your input quantity!");
     } else {
-      showAlert(".alert-danger", "Please select items.");
+      if (items.length > 0) {
+        var subtotal = 0;
+        var vat = 0;
+        var total = 0;
+
+        $("#placeOrderItemsContainer").html("");
+        items.forEach((element) => {
+          var tr = $("<tr>");
+          $(tr).append(
+            "<td class='prod-img-td'><img src='../upload_prodImg/" +
+              element.productImage +
+              "'></td>"
+          );
+          $(tr).append("<td>" + element.productName + "</td>");
+          $(tr).append(
+            "<td>" +
+              element.qty +
+              element.productUnitType +
+              " x " +
+              element.productPrice +
+              "</td>"
+          );
+
+          $(tr).append("<td> ₱ " + element.productAmount + "</td>");
+
+          subtotal += element.productAmount;
+          vat += element.productVat;
+          $("#placeOrderItemsContainer").append(tr);
+        });
+
+        // Computation
+        $("#checkOutSubtotal").text(subtotal);
+        $("#checkOutVat").text(vat);
+
+        if (sf == "Invalid") {
+          $("#checkOutShipping")
+            .text("Address out of coverage!")
+            .addClass("text-danger");
+          $("#btnPlaceOrder").prop("disabled", true);
+        } else {
+          $("#checkOutShipping").text("₱ " + sf);
+          total += sf;
+        }
+
+        total += subtotal;
+        total += vat;
+        $("#checkOutTotal").text(total);
+
+        $("#PlaceOrderModal").modal("show");
+      } else {
+        showAlert(".alert-danger", "Please select items.");
+      }
     }
   });
 

@@ -26,6 +26,21 @@
   background-color: white;
 }
 
+.prod-img-td img {
+  height: 50px;
+  width: 50px;
+}
+
+/* Check Out */
+.checkout-computation-container div span {
+  font-size: 13px;
+}
+
+.checkout-total span {
+  font-size: 15px !important;
+  font-weight: 600;
+}
+
 @media only screen and (max-width: 767px) {
   .cart-item-container {
     justify-content: center;

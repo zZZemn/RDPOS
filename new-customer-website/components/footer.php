@@ -57,6 +57,56 @@
 </div>
 <!-- End of Delete Cart Item Modal -->
 
+
+<!-- Check Out Modal -->
+<div class="modal" tabindex="-1" role="dialog" id="PlaceOrderModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="PlaceOrderModalTitle"><i class="bi bi-bag-check-fill"></i> Check Out</h5>
+                <button type="button" id="closeViewProductModal" class="btn-close btnCloseModal" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="container p-2">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="placeOrderItemsContainer">
+
+                    </tbody>
+                </table>
+                <div class="d-flex flex-column align-items-end p-1">
+                    <div class="checkout-computation-container" style="width: 100%;">
+                        <div class="d-flex justify-content-between">
+                            <span>Subtotal:</span>
+                            <span>₱ <span id="checkOutSubtotal"></span></span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>VAT:</span>
+                            <span>₱ <span id="checkOutVat"></span></span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Shipping:</span>
+                            <span><span id="checkOutShipping"></span></span>
+                        </div>
+                        <div class="d-flex justify-content-between checkout-total">
+                            <span>Total:</span>
+                            <span>₱ <span id="checkOutTotal"></span></span>
+                        </div>
+                    </div>
+                    <button class="btn text-light mt-2" style="height: 40px; background-color: crimson;" id="btnPlaceOrder" data-prodid=""><i class="bi bi-bag-check-fill"></i> Place Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Check Out Modal -->
+
 <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="javascript/app.js"></script>
 </body>

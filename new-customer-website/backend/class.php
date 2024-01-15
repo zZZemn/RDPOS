@@ -157,4 +157,27 @@ class global_class extends db_connect
             return 200;
         }
     }
+
+    // Maintenance
+    public function getMaintenance()
+    {
+        $query = $this->conn->prepare("SELECT * FROM `maintinance`");
+        if ($query->execute()) {
+            $result = $query->get_result();
+            return $result;
+        }
+    }
+
+    // Shipping Fee
+    public function getUserShippingFee($userId)
+    {
+        $query = $this->conn->prepare("SELECT tblA.address_rate AS sf FROM `account` AS a 
+                                       JOIN `user_address` AS ua ON a.acc_code = ua.user_acc_code
+                                       LEFT JOIN tbl_address AS tblA ON ua.user_address_code = tblA.address_code
+                                       WHERE a.acc_id = '$userId'");
+        if ($query->execute()) {
+            $result = $query->get_result();
+            return $result;
+        }
+    }
 }
