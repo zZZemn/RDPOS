@@ -473,7 +473,16 @@ $(document).ready(function () {
           processData: false,
           contentType: false,
           success: function (response) {
-            console.log(response);
+            closeModal("PlaceOrderModal");
+            displayCartItems();
+            if (response == "200") {
+              showAlert(".alert-success", "Order Placed!");
+            } else {
+              showAlert(".alert-success", "Something Went Wrong!");
+            }
+          },
+          error: function (xhr, status, error) {
+            console.error(xhr.responseText);
           },
         });
       }

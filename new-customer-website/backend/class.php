@@ -270,10 +270,86 @@ class global_class extends db_connect
 
     public function placeOrderWithPOF($post, $file)
     {
+        $date = date('Y-m-d H:i:s');
+
+        // Order Id
+        $orderId = 'ORD-' . random_int(000000, 999999);
+        $checkOrderId = $this->checkId('new_tbl_orders', 'order_id', $orderId);
+        while ($checkOrderId->num_rows > 0) {
+            $orderId = 'ORD-' . random_int(000000, 999999);
+            $checkOrderId = $this->checkId('new_tbl_orders', 'order_id', $orderId);
+        }
+
+        // Get Tax Rate
+        $getMaintenance = $this->getMaintenance();
+        if ($getMaintenance->num_rows > 0) {
+            $maintenance = $getMaintenance->fetch_assoc();
+            $taxRate = $maintenance['system_tax'];
+        }
+
         $userId = $_SESSION['acc_id'];
         $paymentType = $_POST['paymentType'];
-        $orderItems =  json_encode($_POST['items']);
+        $orderItems =  json_decode($_POST['items'], true);
 
-        echo 'with pof';
+        $subtotal = 0;
+        $vat = 0;
+        $sf = 0;
+        $total = 0;
+
+        // Get SF
+        $getUserSF = $this->getUserShippingFee($userId);
+        if ($getUserSF->num_rows > 0) {
+            $shippingFee = $getUserSF->fetch_assoc();
+            $sf = $shippingFee['sf'];
+        }
+
+        foreach ($orderItems as $item) {
+            $productId = $item['productId'];
+            $qty = $item['qty'];
+
+            $productAmount = $item['productPrice'] * $qty;
+            $itemVat = $productAmount * $taxRate;
+
+            $subtotal += $productAmount;
+            $vat += $itemVat;
+
+            $insertValues[] = "('$orderId', '$productId', '$qty')";
+
+            $deleteItemsInCart = $this->conn->prepare("DELETE FROM `new_cart` WHERE `prod_id` = '$productId' AND `user_id` = '$userId'");
+            $deleteItemsInCart->execute();
+        }
+
+        $total = $subtotal + $vat + $sf;
+
+
+        // To do: insert image here
+        if (!empty($_FILES['proofOfPayment']['size'])) {
+            $file_name = $file['name'];
+            $file_tmp = $file['tmp_name'];
+            $extension = pathinfo($file_name, PATHINFO_EXTENSION);
+            $destinationDirectory = __DIR__ . "/proof-of-payment/";
+            $newFileName = $orderId . '.' . $extension;
+            $destination = $destinationDirectory . $newFileName;
+            if (is_uploaded_file($file_tmp)) {
+                if (move_uploaded_file($file_tmp, $destination)) {
+                    $insertItemQuery = "INSERT INTO `new_tbl_order_items` (`order_id`, `product_id`, `qty`) VALUES " . implode(", ", $insertValues);
+                    $insertItem = $this->conn->prepare($insertItemQuery);
+                    $query = $this->conn->prepare("INSERT INTO `new_tbl_orders`(`order_id`, `cust_id`, `payment_id`, `pof`,`subtotal`, `vat`, `sf`, `total`, `order_date`, `status`) VALUES ('$orderId', '$userId', '$paymentType', '$newFileName','$subtotal', '$vat', '$sf', '$total', '$date', 'Pending')");
+
+                    if ($query->execute() && $insertItem->execute()) {
+                        return 200;
+                    } else {
+                        echo "Error inserting order or order items.";
+                    }
+                } else {
+                    // return 'Uploading file unsuccessfull';
+                    return $destination;
+                }
+            } else {
+                return "Error: File upload failed or file not found.";
+            }
+        } else {
+            return 'File is empty';
+        }
     }
 }

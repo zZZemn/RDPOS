@@ -94,7 +94,7 @@
                         <img src="" id="paymentImgContainer">
                         <div class="upload-payment-container">
                             <h6 class="text-success">Please Upload Proof of Payment.</h6>
-                            <input type="file" id="paymentTypeImgInput" accept="image/*" class="form-control mt-2">
+                            <input type="file" name="pof" id="paymentTypeImgInput" accept="image/*" class="form-control mt-2">
                             <img id="imagePreview" src="#" alt="Image Preview">
                         </div>
                     </div>

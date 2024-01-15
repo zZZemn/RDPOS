@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($_POST['paymentType'] == 'cod') {
                 echo $db->placeOrderCOD($_POST);
             } else {
-                echo $db->placeOrderCOD($_POST, $_FILES);
+                echo $db->placeOrderWithPOF($_POST, $_FILES['proofOfPayment']);
             }
         } else {
             echo 'Else';
