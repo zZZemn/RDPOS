@@ -321,8 +321,6 @@ class global_class extends db_connect
 
         $total = $subtotal + $vat + $sf;
 
-
-        // To do: insert image here
         if (!empty($_FILES['proofOfPayment']['size'])) {
             $file_name = $file['name'];
             $file_tmp = $file['tmp_name'];
