@@ -30,6 +30,7 @@ if (isset($_SESSION['acc_id'])) {
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/cart.css">
     <link rel="stylesheet" href="css/orders.css">
+    <link rel="stylesheet" href="css/view-order.css">
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
 </head>
 

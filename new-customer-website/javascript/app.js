@@ -453,7 +453,7 @@ $(document).ready(function () {
           if (response == "200") {
             showAlert(".alert-success", "Order Placed!");
           } else {
-            showAlert(".alert-success", "Something Went Wrong!");
+            showAlert(".alert-danger", "Something Went Wrong!");
           }
         },
       });
@@ -481,7 +481,7 @@ $(document).ready(function () {
             if (response == "200") {
               showAlert(".alert-success", "Order Placed!");
             } else {
-              showAlert(".alert-success", "Something Went Wrong!");
+              showAlert(".alert-danger", "Something Went Wrong!");
             }
           },
           error: function (xhr, status, error) {
@@ -499,6 +499,29 @@ $(document).ready(function () {
     window.location.href = "orders.php?page=" + $(this).val();
   });
   // End of Orders.php
+
+  // View-Order.php
+  $("#btnCancelOrder").click(function (e) {
+    e.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: "backend/end-points/orders.php",
+      data: {
+        requestType: "CancelOrder",
+        id: $(this).data("id"),
+      },
+      success: function (response) {
+        console.log(response);
+        if (response == "200") {
+          showAlert(".alert-success", "Order Cancelled!");
+          window.location.reload();
+        } else {
+          showAlert(".alert-danger", "Something Went Wrong!");
+        }
+      },
+    });
+  });
+  // End of View-Order.php
 
   // Function Call
   displayProduct(search, category);

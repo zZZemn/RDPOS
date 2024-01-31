@@ -2,7 +2,7 @@
 include('components/header.php');
 if (isset($_GET['page'])) {
     $page = $_GET['page'];
-    if ($page != 'Pending' && $page != 'Accepted' && $page != 'Ready For Delivery' && $page != 'Shipped' && $page != 'Delivered' && $page != 'Rejected') {
+    if ($page != 'Pending' && $page != 'Accepted' && $page != 'Ready For Delivery' && $page != 'Shipped' && $page != 'Delivered' && $page != 'Cancelled' && $page != 'Rejected') {
         header("Location: orders.php?page=Pending");
         exit;
     }
@@ -33,6 +33,9 @@ if (isset($_GET['page'])) {
             <a class="nav-link <?= (isset($_GET['page']) && $_GET['page'] == 'Delivered') ? 'active' : '' ?>" href="orders.php?page=Delivered"><i class="bi bi-check-square"></i> Delivered</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link <?= (isset($_GET['page']) && $_GET['page'] == 'Cancelled') ? 'active' : '' ?>" href="orders.php?page=Cancelled"><i class="bi bi-x-circle"></i> Cancelled</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link <?= (isset($_GET['page']) && $_GET['page'] == 'Rejected') ? 'active' : '' ?>" href="orders.php?page=Rejected"><i class="bi bi-exclamation-circle"></i> Rejected</a>
         </li>
     </ul>
@@ -45,6 +48,7 @@ if (isset($_GET['page'])) {
             <option value="Ready For Delivery" <?= ($page == 'Ready For Delivery') ? 'selected' : '' ?>>Ready For Delivery</option>
             <option value="Shipped" <?= ($page == 'Shipped') ? 'selected' : '' ?>>Shipped</option>
             <option value="Delivered" <?= ($page == 'Delivered') ? 'selected' : '' ?>>Delivered</option>
+            <option value="Cancelled" <?= ($page == 'Cancelled') ? 'selected' : '' ?>>Cancelled</option>
             <option value="Rejected" <?= ($page == 'Rejected') ? 'selected' : '' ?>>Rejected</option>
         </select>
     </div>
@@ -72,7 +76,7 @@ if (isset($_GET['page'])) {
                 ?>
                         <tr class="orders-tr">
                             <td>
-                                <a href="#" class="btn text-light" style="background-color: crimson;"><i class="bi bi-eye"></i> <?= $order['order_id'] ?></a>
+                                <a href="view-order.php?orderId=<?= $order['order_id'] ?>" class="btn text-light" style="background-color: crimson;"><i class="bi bi-eye"></i> <?= $order['order_id'] ?></a>
                             </td>
                             <td><?= $order['subtotal'] ?></td>
                             <td><?= $order['vat'] ?></td>
@@ -88,7 +92,7 @@ if (isset($_GET['page'])) {
                 } else {
                     ?>
                     <tr>
-                        <td colspan="6" style="text-align: center;">No Order Found.</td>
+                        <td colspan="7" style="text-align: center;">No Order Found.</td>
                     </tr>
                 <?php
                 }

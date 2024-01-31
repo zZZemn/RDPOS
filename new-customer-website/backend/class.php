@@ -362,4 +362,21 @@ class global_class extends db_connect
             return $result;
         }
     }
+
+    public function getUserOrderItems($orderId)
+    {
+        $query = $this->conn->prepare("SELECT i.qty, p.* FROM `new_tbl_order_items` AS i JOIN `product` AS p ON i.product_id = p.prod_id WHERE i.order_id = '$orderId'");
+        if ($query->execute()) {
+            $result = $query->get_result();
+            return $result;
+        }
+    }
+
+    public function cancelOrder($orderId)
+    {
+        $query = $this->conn->prepare("UPDATE `new_tbl_orders` SET `status`= 'Cancelled' WHERE `order_id` = '$orderId'");
+        if ($query->execute()) {
+            return 200;
+        }
+    }
 }
