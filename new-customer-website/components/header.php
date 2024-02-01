@@ -47,9 +47,12 @@ if (isset($_SESSION['acc_id'])) {
                 <img src="../assets/logos.png">
             </a>
         </div>
-        <button id="btnProfile" class="btn-profile">
-            <?= ($user['emp_image'] != '') ? '<img src="assets/profile-pictures/' . $user['emp_image'] . '">' :  '<i class="bi bi-person-fill"></i>' ?>
-        </button>
+        <div>
+            <button id="btnProfile" class="btn-profile">
+                <?= ($user['emp_image'] != '') ? '<img src="assets/profile-pictures/' . $user['emp_image'] . '">' :  '<i class="bi bi-person-fill"></i>' ?>
+            </button>
+            <a href="backend/logout.php" class="btn btn-primary">Logout</a>
+        </div>
     </nav>
     <aside class="side-nav">
         <ul class="list-group">
