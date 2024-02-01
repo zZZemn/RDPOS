@@ -73,6 +73,13 @@ if ($paymentType != 'COD') {
     <table class="table">
         <thead>
             <tr>
+                <td colspan="4">
+                    <h5 style="font-weight: 700;" class="mt-3 mb-2 text-secondary">
+                        <i class="bi bi-feather"></i> Items
+                    </h5>
+                </td>
+            </tr>
+            <tr>
                 <th class="">#</th>
                 <th class="">Item</th>
                 <th class="">Quantity</th>
