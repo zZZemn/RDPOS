@@ -30,7 +30,7 @@ $currentURL = $_SERVER['REQUEST_URI'];
 
 
 <li >
-<a href="list_order.php"><img src="assets/img/truck.png" alt="img"><span class="text-white"> Order</span> </a>
+<a href="../new-orders-view/orders.php"><img src="assets/img/truck.png" alt="img"><span class="text-white"> Order</span> </a>
 </li>
 
 
