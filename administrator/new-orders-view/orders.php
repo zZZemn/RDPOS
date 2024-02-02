@@ -36,5 +36,26 @@ if (isset($_GET['page'])) {
         </li>
     </ul>
 </div>
+
+<div class="orders-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Subtotal</th>
+                <th>VAT</th>
+                <th>Shipping Fee</th>
+                <th>Total</th>
+                <th>Order Date</th>
+                <?= ($page == 'Delivered') ? '<th>Delivery Date</th>' : '' ?>
+                <?= ($page == 'Delivered' || $page == 'Shipped') ? '<th>Rider</th>' : '' ?>
+                <?= ($page == 'Rejected') ? '<th>Reject Reason</th>' : '' ?>
+            </tr>
+        </thead>
+        <tbody id="ordersContainer">
+
+        </tbody>
+    </table>
+</div>
 <?php
 include('components/footer.php');
