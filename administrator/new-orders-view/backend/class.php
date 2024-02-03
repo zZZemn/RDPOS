@@ -46,6 +46,14 @@ class global_class extends db_connect
         }
     }
 
+    public function rejectOrder($orderId)
+    {
+        $query = $this->conn->prepare("UPDATE `new_tbl_orders` SET `status`='Rejected' WHERE `order_id` = '$orderId'");
+        if ($query->execute()) {
+            return 200;
+        }
+    }
+
     public function changeOrderStatus($orderId)
     {
         $getOrder = $this->checkId('new_tbl_orders', 'order_id', $orderId);

@@ -56,6 +56,12 @@ $(document).ready(function () {
     $(".modal").modal("hide");
   };
 
+  const showAlert = (alertType, text) => {
+    $(alertType).text(text).css("opacity", "1");
+    setTimeout(() => {
+      $(alertType).css("opacity", "0");
+    }, 1000);
+  };
   setInterval(() => {
     getOrders();
     getOrderStatus();
@@ -77,16 +83,43 @@ $(document).ready(function () {
       data: formData,
       success: function (response) {
         closeModal();
-        getOrderStatus();
-        getChangeOrderStatusButtons();
-        console.log(response);
+        if (response == "200") {
+          showAlert(".alert-success", "Order Status Changed!");
+          getOrderStatus();
+          getChangeOrderStatusButtons();
+        } else {
+          showAlert(".alert-danger", "Something went wrong!");
+          window.location.reload();
+        }
       },
     });
   });
 
   $(document).on("click", ".btnRejectOrder", function (e) {
     e.preventDefault();
-    console.log($(this).data("id"));
+    $("#rejectOrderId").val($(this).data("id"));
+    $("#rejectOrderModal").modal("show");
+  });
+
+  $("#frmRejectOrder").submit(function (e) {
+    e.preventDefault();
+    var formData = $(this).serialize();
+    $.ajax({
+      type: "POST",
+      url: "backend/endpoints/post.php",
+      data: formData,
+      success: function (response) {
+        closeModal();
+        if (response == "200") {
+          showAlert(".alert-success", "Order Rejected!");
+          getOrderStatus();
+          getChangeOrderStatusButtons();
+        } else {
+          showAlert(".alert-danger", "Something went wrong!");
+          window.location.reload();
+        }
+      },
+    });
   });
 
   $(".btnCloseModal").click(function (e) {

@@ -21,12 +21,12 @@ if (isset($_GET['orderId'])) {
         } elseif ($orderStatus == 'Ready For Delivery') {
         ?>
             <button class="btn btn-success btnUpgradeStatus" data-id="<?= $orderId ?>"><i class="bi bi-truck"></i> Order Shipped</button>
-            <button class="btn btn-danger btnRejectOrder" data-id="<?= $orderId ?>"><i class="bi bi-x-lg"></i> Cancel</button>
+            <!-- <button class="btn btn-danger btnRejectOrder" data-id="<?= $orderId ?>"><i class="bi bi-x-lg"></i> Cancel</button> -->
         <?php
         } elseif ($orderStatus == 'Shipped') {
         ?>
             <button class="btn btn-success btnUpgradeStatus" data-id="<?= $orderId ?>"><i class="bi bi-check-square"></i> Delivered</button>
-            <button class="btn btn-danger btnRejectOrder" data-id="<?= $orderId ?>"><i class="bi bi-x-lg"></i> Cancel</button>
+            <!-- <button class="btn btn-danger btnRejectOrder" data-id="<?= $orderId ?>"><i class="bi bi-x-lg"></i> Cancel</button> -->
 <?php
         }
     }

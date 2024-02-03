@@ -18,3 +18,14 @@
   padding-top: 10px;
   font-size: 14px;
 }
+
+/* Alert */
+.alert {
+  position: absolute;
+  top: 20px;
+  z-index: 10000;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  opacity: 0;
+}
