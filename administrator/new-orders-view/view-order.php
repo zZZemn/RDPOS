@@ -164,7 +164,11 @@ if ($paymentType != 'COD') {
                     <td class="justify-content-between"><span style="font-weight: 600;">Delivery Rider:</span></td>
                     <td></td>
                     <td></td>
-                    <td class="justify-content-between"><span style="font-weight: 600;"><?= $rider ?></span></td>
+                    <td class="justify-content-between">
+                        <span style="font-weight: 600;" id="selectRiderContainer">
+
+                        </span>
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="4">

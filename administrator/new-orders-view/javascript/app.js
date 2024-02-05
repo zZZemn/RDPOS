@@ -52,6 +52,20 @@ $(document).ready(function () {
     });
   };
 
+  const getSelectRider = () => {
+    var orderId = getUrlParameter("orderId");
+    $.ajax({
+      type: "GET",
+      url: "backend/endpoints/get-select-rider.php",
+      data: {
+        orderId: orderId,
+      },
+      success: function (response) {
+        $("#selectRiderContainer").html(response);
+      },
+    });
+  };
+
   const closeModal = () => {
     $(".modal").modal("hide");
   };
@@ -87,6 +101,9 @@ $(document).ready(function () {
           showAlert(".alert-success", "Order Status Changed!");
           getOrderStatus();
           getChangeOrderStatusButtons();
+          getSelectRider();
+        } else if (response == "Please select rider!") {
+          showAlert(".alert-danger", response);
         } else {
           showAlert(".alert-danger", "Something went wrong!");
           window.location.reload();
@@ -114,6 +131,7 @@ $(document).ready(function () {
           showAlert(".alert-success", "Order Rejected!");
           getOrderStatus();
           getChangeOrderStatusButtons();
+          getSelectRider();
         } else {
           showAlert(".alert-danger", "Something went wrong!");
           window.location.reload();
@@ -127,7 +145,24 @@ $(document).ready(function () {
     closeModal();
   });
 
+  $(document).on("change", "#selectRider", function (e) {
+    e.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: "backend/endpoints/post.php",
+      data: {
+        requestType: "SelectRider",
+        riderId: $(this).val(),
+        orderId: $(this).data("id"),
+      },
+      success: function (response) {
+        console.log(response);
+      },
+    });
+  });
+
   getOrders();
   getOrderStatus();
   getChangeOrderStatusButtons();
+  getSelectRider();
 });

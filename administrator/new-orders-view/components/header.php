@@ -6,6 +6,10 @@ if (isset($_SESSION['acc_id'])) {
     $checkUser = $db->checkUser($_SESSION['acc_id']);
     if ($checkUser->num_rows > 0) {
         $user = $checkUser->fetch_assoc();
+        if ($user['acc_type'] != 'administrator') {
+            header('Location: backend/logout.php');
+            exit;
+        }
     } else {
         header('Location: backend/logout.php');
         exit;

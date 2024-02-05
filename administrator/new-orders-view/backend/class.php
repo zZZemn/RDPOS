@@ -27,6 +27,15 @@ class global_class extends db_connect
         }
     }
 
+    public function getUserType($userType)
+    {
+        $query = $this->conn->prepare("SELECT * FROM `account` WHERE `acc_type` = '$userType' AND `acc_status` = '0'");
+        if ($query->execute()) {
+            $result = $query->get_result();
+            return $result;
+        }
+    }
+
     // Orders
     public function getOrders($status)
     {
@@ -66,6 +75,9 @@ class global_class extends db_connect
                 $newStatus = 'Ready For Delivery';
             } elseif ($orderStatus == 'Ready For Delivery') {
                 $newStatus = 'Shipped';
+                if ($order['rider_id'] == '') {
+                    return 'Please select rider!';
+                }
             } elseif ($orderStatus == 'Shipped') {
                 $newStatus = 'Delivered';
             } else {
@@ -124,6 +136,14 @@ class global_class extends db_connect
             return $newStatus;
         } else {
             return 400;
+        }
+    }
+
+    public function changeOrderRider($orderId, $riderId)
+    {
+        $query = $this->conn->prepare("UPDATE `new_tbl_orders` SET `rider_id`='$riderId' WHERE `order_id` = '$orderId'");
+        if ($query->execute()) {
+            return 200;
         }
     }
 }
