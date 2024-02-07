@@ -33,7 +33,7 @@
 
             }else if($acc_type == 'deliveryStaff'){
                     $_SESSION['acc_id'] = $acc_id;
-                    header("Location: ../../administrator/admin_view/list_order.php");
+                    header("Location: ../../rider");
                     exit();
                     
             } else {
