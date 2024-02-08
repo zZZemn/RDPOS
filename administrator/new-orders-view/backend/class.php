@@ -65,6 +65,7 @@ class global_class extends db_connect
 
     public function changeOrderStatus($orderId)
     {
+        $dateTime = date('Y-m-d H:i:s');
         $getOrder = $this->checkId('new_tbl_orders', 'order_id', $orderId);
         if ($getOrder->num_rows > 0) {
             $order = $getOrder->fetch_assoc();
@@ -80,6 +81,12 @@ class global_class extends db_connect
                 }
             } elseif ($orderStatus == 'Shipped') {
                 $newStatus = 'Delivered';
+                $query = $this->conn->prepare("UPDATE `new_tbl_orders` SET `status`='$newStatus', `delivered_date` = '$dateTime' WHERE `order_id` = '$orderId'");
+                if ($query->execute()) {
+                    return 200;
+                } else {
+                    return 400;
+                }
             } else {
                 return 400;
             }

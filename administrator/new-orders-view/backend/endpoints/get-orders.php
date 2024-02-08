@@ -7,6 +7,12 @@ if (isset($_GET['page'])) {
     $orders = $db->getOrders($page);
     if ($orders->num_rows > 0) {
         while ($order = $orders->fetch_assoc()) {
+            $getRider = $db->checkId('account', 'acc_id', $order['rider_id']);
+            $riderName = 'NA';
+            if ($getRider->num_rows > 0) {
+                $rider =  $getRider->fetch_assoc();
+                $riderName = $rider['acc_fname'] . ' ' . $rider['acc_lname'];
+            }
 ?>
             <tr class="orders-tr">
                 <td>
@@ -18,7 +24,7 @@ if (isset($_GET['page'])) {
                 <td><?= $order['total'] ?></td>
                 <td><?= date('F j, Y g:i A', strtotime($order['order_date'])) ?></td>
                 <?= ($page == 'Delivered') ? '<td>' . $order['delivered_date'] . '</td>' : '' ?>
-                <?= ($page == 'Delivered' || $page == 'Shipped') ? '<td>' . $order['rider_id'] . '</td>' : '' ?>
+                <?= ($page == 'Delivered' || $page == 'Shipped') ? '<td>' . $riderName . '</td>' : '' ?>
                 <?= ($page == 'Rejected') ? '<td>' . $order['reject_reason'] . '</td>' : '' ?>
             </tr>
         <?php
