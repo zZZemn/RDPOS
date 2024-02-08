@@ -196,7 +196,7 @@ if ($paymentType != 'COD') {
                                 </h5>
                             </center>
                             <div class="pof-container container">
-                                <img src="backend/proof-of-payment/<?= $order['pof'] ?>">
+                                <img src="../../new-customer-website/backend/proof-of-payment/<?= $order['pof'] ?>" style="max-width: 300px;">
                             </div>
                         </td>
                     </tr>
