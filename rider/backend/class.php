@@ -53,4 +53,13 @@ class global_class extends db_connect
             return $result;
         }
     }
+
+    public function productDelivered($orderId)
+    {
+        // Add in sales
+        $query = $this->conn->prepare("UPDATE `new_tbl_orders` SET `status`='Delivered' WHERE `order_id` = '$orderId'");
+        if ($query->execute()) {
+            return 200;
+        }
+    }
 }

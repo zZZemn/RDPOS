@@ -29,9 +29,81 @@ $(document).ready(function () {
     });
   };
 
+  const getOrderStatus = () => {
+    $.ajax({
+      type: "GET",
+      url: "backend/endpoints/get-order-status.php",
+      data: {
+        orderId: getUrlParameter("orderId"),
+      },
+      success: function (response) {
+        $("#viewOrderStatusContainer").html(response);
+      },
+    });
+  };
+
+  const getBtnDeliverOrder = () => {
+    $.ajax({
+      type: "GET",
+      url: "backend/endpoints/get-change-order-status-buttons.php",
+      data: {
+        orderId: getUrlParameter("orderId"),
+      },
+      success: function (response) {
+        $("#btnChangeOrderStatusContainer").html(response);
+      },
+    });
+  };
+
+  const closeModal = () => {
+    $(".modal").modal("hide");
+  };
+
+  $(".btnCloseModal").click(function (e) {
+    e.preventDefault();
+    closeModal();
+  });
+
+  // Deliver Order
+  $(document).on("click", ".btnUpgradeStatus", function (e) {
+    e.preventDefault();
+    $("#changeOrderStatusModalOrderId").val($(this).data("id"));
+    $("#changeOrderStatusModal").modal("show");
+  });
+
+  $("#frmChangeOrderStatus").submit(function (e) {
+    e.preventDefault();
+    var formData = $(this).serialize();
+    $.ajax({
+      type: "POST",
+      url: "backend/endpoints/post.php",
+      data: formData,
+      success: function (response) {
+        closeModal();
+        if (response == "200") {
+          showAlert(".alert-success", "Order Status Changed!");
+          getOrderStatus();
+          getBtnDeliverOrder();
+        } else if (response == "Please select rider!") {
+          showAlert(".alert-danger", response);
+        } else {
+          showAlert(".alert-danger", "Something went wrong!");
+          window.location.reload();
+        }
+      },
+    });
+  });
+
   setInterval(() => {
     displayOrders();
   }, 3000);
 
+  setInterval(() => {
+    getOrderStatus();
+    getBtnDeliverOrder();
+  }, 1000);
+
   displayOrders();
+  getOrderStatus();
+  getBtnDeliverOrder();
 });
