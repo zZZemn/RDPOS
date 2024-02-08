@@ -24,7 +24,7 @@ if (isset($_SESSION['acc_id'])) {
                         <td><?= $order['sf'] ?></td>
                         <td><?= $order['total'] ?></td>
                         <td><?= date('F j, Y g:i A', strtotime($order['order_date'])) ?></td>
-                        <?= ($page == 'Delivered') ? '<td>' . $order['delivered_date'] . '</td>' : '' ?>
+                        <?= ($page == 'Delivered') ? '<td>' . date('F j, Y g:i A', strtotime($order['delivered_date'])) . '</td>' : '' ?>
                     </tr>
                 <?php
                 }
