@@ -156,16 +156,21 @@ class global_class extends db_connect
 
     public function getOrderSales()
     {
-        // account - acc_fname, acc_lname
-        // mode_of_payment - payment_name
-        // account - acc_fname, acc_lname
-
         $query = $this->conn->prepare("SELECT o.*, a.acc_fname AS cust_fname, a.acc_lname AS cust_lname, r.acc_fname AS db_fname, r.acc_lname AS db_lname, mop.payment_name AS payment
                                        FROM `new_tbl_orders` AS o 
                                        JOIN `account` AS a ON o.cust_id = a.acc_id
                                        JOIN `account` AS r ON o.rider_id = r.acc_id
                                        LEFT JOIN `mode_of_payment` AS mop ON o.payment_id = mop.payment_id
                                        WHERE `status` = 'Delivered'");
+        if ($query->execute()) {
+            $result = $query->get_result();
+            return $result;
+        }
+    }
+
+    public function getSalesInPOS()
+    {
+        $query = $this->conn->prepare("SELECT *, SUM(orders_subtotal) AS subtotal FROM `pos_orders` GROUP BY `orders_tcode`");
         if ($query->execute()) {
             $result = $query->get_result();
             return $result;

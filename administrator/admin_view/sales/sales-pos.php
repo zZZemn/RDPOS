@@ -37,18 +37,34 @@
                     <table class="table  datanew">
                         <thead>
                             <tr>
-                                <th>Profile</th>
-                                <th>First name </th>
-                                <th>Last name </th>
-                                <th>User name </th>
-                                <th>Account type</th>
-                                <th>email</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                <th>#</th>
+                                <th>Subtotal</th>
+                                <th>Vat</th>
+                                <th>Discount</th>
+                                <th>Total</th>
+                                <th>Payment</th>
+                                <th>Change</th>
+                                <th>Date</th>
                             </tr>
                         </thead>
                         <tbody>
-
+                            <?php
+                            $getPosSales = $db->getSalesInPOS();
+                            while ($sales = $getPosSales->fetch_assoc()) {
+                            ?>
+                                <tr>
+                                    <td><?= $sales['orders_tcode'] ?></td>
+                                    <td><?= $sales['subtotal'] ?></td>
+                                    <td><?= $sales['orders_tax'] ?></td>
+                                    <td><?= $sales['orders_discount'] ?></td>
+                                    <td><?= $sales['orders_final'] ?></td>
+                                    <td><?= $sales['orders_payment'] ?></td>
+                                    <td><?= $sales['orders_change'] ?></td>
+                                    <td><?= (new DateTime($sales['orders_date']))->format('F j, Y h:i A') ?></td>
+                                </tr>
+                            <?php
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
