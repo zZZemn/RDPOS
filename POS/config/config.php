@@ -1,13 +1,13 @@
 <?php
-$connections = mysqli_connect ("localhost","root","","u722452653_rdpos");
+$connections = mysqli_connect ("localhost:8889","root","root","u722452653_rdpos");
 //$connections = mysqli_connect ("localhost","u722452653_rdpos","Rdpos12345678","u722452653_rdpos");
 ?>
 
 <?php
 // Database credentials
-$hostname = 'localhost';      // Change this to your database hostname
+$hostname = 'localhost:8889';      // Change this to your database hostname
  $username = 'root';   // Change this to your database username
-$password = '';   // Change this to your database password
+$password = 'root';   // Change this to your database password
 $database = 'u722452653_rdpos';   // Change this to your database name
 
 

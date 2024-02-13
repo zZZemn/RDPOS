@@ -1,7 +1,7 @@
 <?php
-define("db_host", "localhost");
+define("db_host", "localhost:8889");
 define("db_user", "root");
-define("db_pass", "");
+define("db_pass", "root");
 define("db_name", "u722452653_rdpos");
 
 class db_connect
